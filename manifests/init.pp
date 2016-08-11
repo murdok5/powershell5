@@ -1,15 +1,15 @@
 class powershell5 (
   $path = "C:/temp/",
-  $installer = "Win8\.1AndW2K12R2\-KB3134758\-x64\.msu",
+  $installer = "Win8.1AndW2K12R2-KB3134758-x64.msu",
 ) {
 
   file { "ps_installer":
     ensure => 'present',
-    source => "puppet:///powershell5/${installer}",
+    source => "puppet:///modules/powershell5/${installer}",
     path   => "${path}${installer}",
   }
 
-  file { "c:\\temp\\":
+  file { "${path}":
     ensure => 'folder',
     before => File['ps_installer'],
   }
