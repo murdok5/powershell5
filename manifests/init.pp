@@ -21,10 +21,11 @@ class powershell5 (
   }
 
   # disable auto updating so machine doesnt start downloading / updating
-  registry_value { 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU\NoAutoUpdate':
-    ensure   => present,
-    type   => dword,
-    data => "1",
+  registry::value { 'disable updates':
+    key   => 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU',
+    value => 'NoAutoUpdate',
+    data  => "1",
+    type  => 'dword',
   }
 
 }
