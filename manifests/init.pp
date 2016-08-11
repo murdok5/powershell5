@@ -1,6 +1,7 @@
 class powershell5 (
   $path = "C:/temp/",
   $installer = "Win8.1AndW2K12R2-KB3134758-x64.msu",
+  $installscript = "install.ps1",
 ) {
 
    file { "${path}":
@@ -12,6 +13,11 @@ class powershell5 (
     ensure => 'present',
     source => "puppet:///modules/powershell5/${installer}",
     path   => "${path}${installer}",
+  }
+  file { "ps_installer_script":
+    ensure => 'present',
+    source => "puppet:///modules/powershell5/${installscript}",
+    path   => "${path}${installscript}",
   }
 
   # service needs to be running to install the update
