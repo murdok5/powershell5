@@ -10,12 +10,11 @@ class powershell5 (
   }
 
   file { "${path}":
-    ensure => 'folder',
+    ensure => 'directory',
     before => File['ps_installer'],
   }
 
-
-  service { 'windows update':
+  service { 'wuauserv':
     ensure  => 'running',
     enable => 'true',
   }
