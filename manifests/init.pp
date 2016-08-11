@@ -14,15 +14,17 @@ class powershell5 (
     path   => "${path}${installer}",
   }
 
+  # service needs to be running to install the update
   service { 'wuauserv':
     ensure  => 'running',
     enable => 'true',
   }
 
-  registry_value { 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU':
+  # disable auto updating so machine doesnt start downloading / updating
+  registry_value { 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU\NoAutoUpdate':
     ensure   => present,
     type   => dword,
-    data => "NoWindowsUpdate",
+    data => "1",
   }
 
 }
