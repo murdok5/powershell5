@@ -4,7 +4,7 @@ class powershell5 (
   $installscript = "install.ps1",
 ) {
 
-   file { "${path}":
+  file { "${path}":
     ensure => 'directory',
   }
   
@@ -14,12 +14,12 @@ class powershell5 (
     path   => "${path}${installer}",
     after  => File["${path}"],
   }
-  file { "ps_installer_script":
-    ensure => 'present',
-    source => "puppet:///modules/powershell5/${installscript}",
-    path   => "${path}${installscript}",
-    after  => File["${path}"],
-  }
+  # file { "ps_installer_script":
+  #  ensure => 'present',
+  #  source => "puppet:///modules/powershell5/${installscript}",
+  #  path   => "${path}${installscript}",
+  #  after  => File["${path}"],
+  #}
 
   # service needs to be running to install the update
   service { 'wuauserv':
@@ -36,9 +36,10 @@ class powershell5 (
   }
 
   exec { 'run_install_script':
-    command  => file("${path}${installscript}"),
+    #command => file("${path}${installscript}"),
+    command  => "wusa ${path}Win8.1AndW2K12R2-KB3134758-x64.msu /quiet /norestart",
     provider => powershell,
-    after    => File['ps_installer_script'],
+    #after   => File['ps_installer_script'],
   }
 
 }
