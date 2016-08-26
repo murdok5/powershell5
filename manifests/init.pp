@@ -13,7 +13,7 @@ class powershell5 (
     ensure => 'present',
     source => "puppet:///modules/powershell5/${installer}",
     path   => "${path}${installer}",
-    after  => File["temp"],
+    require  => File["temp"],
   }
   # file { "ps_installer_script":
   #  ensure => 'present',
@@ -40,6 +40,7 @@ class powershell5 (
     #command => file("${path}${installscript}"),
     command  => "wusa ${path}Win8.1AndW2K12R2-KB3134758-x64.msu /quiet /norestart",
     provider => powershell,
+    require  => [File['ps_installer'],Service['wuauserv']],
     #after   => File['ps_installer_script'],
   }
 
