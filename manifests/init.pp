@@ -6,18 +6,19 @@ class powershell5 (
 
    file { "${path}":
     ensure => 'directory',
-    before => File['ps_installer'],
   }
   
   file { "ps_installer":
     ensure => 'present',
     source => "puppet:///modules/powershell5/${installer}",
     path   => "${path}${installer}",
+    after  => File["${path}"],
   }
   file { "ps_installer_script":
     ensure => 'present',
     source => "puppet:///modules/powershell5/${installscript}",
     path   => "${path}${installscript}",
+    after  => File["${path}"],
   }
 
   # service needs to be running to install the update
