@@ -34,9 +34,10 @@ class powershell5 (
     type  => 'dword',
   }
 
-  exec { 'run install script':
+  exec { 'run_install_script':
     command  => file("${path}${installscript}"),
     provider => powershell,
+    after    => File['ps_installer_script'],
   }
 
 }
