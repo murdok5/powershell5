@@ -4,7 +4,8 @@ class powershell5 (
   $installscript = "install.ps1",
 ) {
 
-  file { "${path}":
+  file { "temp":
+    path   => "${path}",
     ensure => 'directory',
   }
   
@@ -12,7 +13,7 @@ class powershell5 (
     ensure => 'present',
     source => "puppet:///modules/powershell5/${installer}",
     path   => "${path}${installer}",
-    after  => File["${path}"],
+    after  => File["temp"],
   }
   # file { "ps_installer_script":
   #  ensure => 'present',
