@@ -4,7 +4,7 @@ class powershell5 (
   $installscript = "install.ps1",
 ) {
 
-  if $facts['powershell_major_version'] < 5 {
+  if $::powershell_version_major < 5 {
     notify {" Powershell is less than 5":}
 
   file { "temp":
