@@ -4,6 +4,9 @@ class powershell5 (
   $installscript = "install.ps1",
 ) {
 
+  if $facts['powershell_major_version'] < 5 {
+    notify {" Powershell is less than 5":}
+
   file { "temp":
     path   => "${path}",
     ensure => 'directory',
@@ -15,12 +18,6 @@ class powershell5 (
     path   => "${path}${installer}",
     require  => File["temp"],
   }
-  # file { "ps_installer_script":
-  #  ensure => 'present',
-  #  source => "puppet:///modules/powershell5/${installscript}",
-  #  path   => "${path}${installscript}",
-  #  after  => File["${path}"],
-  #}
 
   # service needs to be running to install the update
   service { 'wuauserv':
@@ -37,11 +34,13 @@ class powershell5 (
   }
 
   exec { 'run_install_script':
-    #command => file("${path}${installscript}"),
     command  => "wusa ${path}Win8.1AndW2K12R2-KB3134758-x64.msu /quiet /norestart",
     provider => powershell,
     require  => [File['ps_installer'],Service['wuauserv']],
-    #after   => File['ps_installer_script'],
   }
-
+  
+  }
+  else {
+    notify {'Powershell is version 5 or greater':}
+  }
 }
