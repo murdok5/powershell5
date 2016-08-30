@@ -1,0 +1,28 @@
+{
+  "name": "powershell5",
+  "version": "0.1.0",
+  "author": "Puppet Labs TSE Team",
+  "license": "Apache-2.0",
+  "summary": "Updates Windows Powershell to version 5.0 if less than 5.0 for other module support",
+  "source": "https://github.com/murdok5/powershell5",
+  "project_page": "https://github.com/murdok5/powershell5",
+  "dependencies": [ ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Windows",
+      "operatingsystemrelease": [
+        "Server 2012 R2"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": ">=2015.1.0"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": ">=4.0.0"
+    }
+  ]
+}
